@@ -6,9 +6,11 @@ const skillCategories = [
     title: "frontend",
     icon: "◈",
     skills: [
-      { name: "React / Next.js", level: 95 },
+      { name: "React", level: 98 },
+      { name: "Next.js", level: 93 },
       { name: "TypeScript", level: 92 },
       { name: "Tailwind CSS", level: 90 },
+      { name: "shadcn/ui", level: 90 },
       { name: "Three.js / WebGL", level: 70 },
     ],
   },
@@ -16,9 +18,11 @@ const skillCategories = [
     title: "backend",
     icon: "◆",
     skills: [
-      { name: "Node.js / Express", level: 90 },
-      { name: "Python / FastAPI", level: 85 },
-      { name: "PostgreSQL", level: 88 },
+      { name: "Node.js / Express", level: 97 },
+      { name: "Python / FastAPI", level: 92 },
+      { name: "TypeScript", level: 92 },
+      { name: "Django", level: 90 },
+      { name: "Nest.js", level: 90 },
       { name: "GraphQL", level: 78 },
     ],
   },
@@ -26,10 +30,42 @@ const skillCategories = [
     title: "devops",
     icon: "◇",
     skills: [
+      { name: "Linux / Nginx", level: 88 },
+      { name: "CI/CD Pipelines", level: 85 },
       { name: "Docker / K8s", level: 82 },
       { name: "AWS / GCP", level: 80 },
-      { name: "CI/CD Pipelines", level: 85 },
-      { name: "Linux / Nginx", level: 88 },
+    ],
+  },
+  {
+    title: "database",
+    icon: "◉",
+    skills: [
+      { name: "PostgreSQL", level: 90 },
+      { name: "Redis", level: 88 },
+      { name: "MySQL", level: 87 },
+      { name: "MongoDB", level: 86 },
+    ],
+  },
+  {
+    title: "programming_languages",
+    icon: "⬢",
+    skills: [
+      { name: "TypeScript", level: 92 },
+      { name: "JavaScript", level: 91 },
+      { name: "Python", level: 90 },
+      { name: "Java", level: 86 },
+      { name: "C++", level: 82 },
+    ],
+  },
+  {
+    title: "other_technologies",
+    icon: "◍",
+    skills: [
+      { name: "Git / GitHub", level: 95 },
+      { name: "REST APIs", level: 93 },
+      { name: "WebSockets", level: 88 },
+      { name: "Testing (Vitest / Playwright)", level: 86 },
+      { name: "Figma", level: 80 },
     ],
   },
 ];
@@ -53,18 +89,27 @@ const SkillsSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((cat, ci) => (
             <motion.div
               key={cat.title}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + ci * 0.15 }}
-              className="border border-border bg-card/30 backdrop-blur-sm hover:box-glow transition-all duration-500 group"
+              className={`border border-border bg-card/30 backdrop-blur-sm hover:box-glow transition-all duration-500 group ${ci === 4 ? "lg:col-start-2" : ""} ${ci === 5 ? "lg:col-start-3" : ""}`}
             >
               <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-                <span className="text-xs text-muted-foreground font-mono">
-                  <span className="text-primary">{cat.icon}</span> {cat.title}/
+                <span className="text-xs text-muted-foreground font-mono leading-tight">
+                  <span className="text-primary">{cat.icon}</span>{" "}
+                  {cat.title === "programming_languages" ? (
+                    <>
+                      programming_
+                      <br />
+                      languages/
+                    </>
+                  ) : (
+                    `${cat.title}/`
+                  )}
                 </span>
                 <span className="text-[10px] text-muted-foreground/50">{cat.skills.length} items</span>
               </div>
