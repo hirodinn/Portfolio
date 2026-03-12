@@ -1,17 +1,66 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const stats = [
   { label: "years_experience", value: "5+", icon: "⚡" },
   { label: "projects_shipped", value: "40+", icon: "🚀" },
   { label: "songs_on_repeat", value: "∞", icon: "🎵" },
   { label: "commits_this_year", value: "1.2k", icon: "📦" },
+  { label: "response_time", value: "4h", icon: "⏱️" },
+  { label: "global_collabs", value: "15+", icon: "🌍" },
 ];
 
 const AboutSection = () => {
   const ref = useRef(null);
+  const terminalRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [command, setCommand] = useState("");
+  const [output, setOutput] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [output, command]);
+
+  const handleCommand = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && command.trim()) {
+      const cmd = command.trim().toLowerCase();
+      let response: string;
+
+      if (cmd === "help") {
+        response = "Available commands: help, bio, stack, hobbies, music, location, social, email, hire, availability, clear";
+      } else if (cmd === "bio") {
+        response = "→ Software engineer focused on clean, scalable, and user-centered digital products.";
+      } else if (cmd === "stack") {
+        response = "→ React | TypeScript | Node.js | Cloud | Modern CSS";
+      } else if (cmd === "hobbies") {
+        response = "→ Music production, listening sessions, open-source exploration, and side projects.";
+      } else if (cmd === "music") {
+        response = "→ Playlist status: J. Cole for deep focus, Teddy Afro for instant motivation — if both play back-to-back, deploy speed increases by 2x 😄";
+      } else if (cmd === "location") {
+        response = "→ Addis Ababa, Ethiopia";
+      } else if (cmd === "email") {
+        response = "→ hirebikila1@gmail.com — Feel free to reach out!";
+      } else if (cmd === "social") {
+        response = "→ github.com/hirodinn | linkedin.com/in/hirodinn | instagram.com/hirodinn_ | x.com/hirodinn | +251972229619";
+      } else if (cmd === "hire") {
+        response = "→ I'm currently open to new opportunities! Let's chat.";
+      } else if (cmd === "availability") {
+        response = "→ Usually responds within 4 hours.";
+      } else if (cmd === "clear") {
+        setOutput([]);
+        setCommand("");
+        return;
+      } else {
+        response = `command not found: ${cmd}. Type 'help' for available commands.`;
+      }
+
+      setOutput((prev) => [...prev, `$ ${command}`, response]);
+      setCommand("");
+    }
+  };
 
   return (
     <section id="about" className="py-32 px-4 relative" ref={ref}>
@@ -50,9 +99,40 @@ const AboutSection = () => {
                 <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">When I'm not coding, you'll find me contributing</span></p>
                 <p><span className="text-muted-foreground">  to open source, writing technical articles, or</span></p>
                 <p><span className="text-muted-foreground">  exploring new technologies with music on repeat.</span></p>
-                <p className="pt-4 text-primary/60">
-                  dev@portfolio:~$ <span className="cursor-blink">▊</span>
-                </p>
+              </div>
+            </div>
+
+            <div className="border border-border bg-card/50 backdrop-blur-sm box-glow mt-4">
+              <div className="px-4 py-2 border-b border-border flex items-center gap-2">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-destructive/60" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary/60" />
+                </div>
+                <span className="text-[10px] text-muted-foreground ml-2">contact — bash</span>
+              </div>
+              <div ref={terminalRef} className="p-4 font-mono text-sm h-[280px] overflow-y-auto [scrollbar-color:hsl(var(--primary))_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-primary/60">
+                <p className="text-muted-foreground mb-1">This is interactive: type a command and press Enter.</p>
+                <p className="text-muted-foreground mb-2">Start with <span className="text-primary">help</span> for available commands.</p>
+                <div className="space-y-1">
+                  {output.map((line, i) => (
+                    <p key={i} className={`${line.startsWith("$") ? "text-muted-foreground" : "text-primary/80"} break-words`}>
+                      {line}
+                    </p>
+                  ))}
+                </div>
+                <div className="flex items-center mt-2">
+                  <span className="text-primary/60 mr-2">visitor@portfolio:~$</span>
+                  <input
+                    type="text"
+                    value={command}
+                    onChange={(e) => setCommand(e.target.value)}
+                    onKeyDown={handleCommand}
+                    className="flex-1 bg-transparent outline-none text-foreground caret-primary"
+                    placeholder="type a command..."
+                    autoComplete="off"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>

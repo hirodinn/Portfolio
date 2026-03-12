@@ -16,8 +16,6 @@ const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [command, setCommand] = useState("");
-  const [output, setOutput] = useState<string[]>([]);
   const [sendState, setSendState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -27,32 +25,6 @@ const ContactSection = () => {
     message: "",
     companyWebsite: "", // honeypot
   });
-
-  const handleCommand = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && command.trim()) {
-      const cmd = command.trim().toLowerCase();
-      let response: string;
-
-      if (cmd === "help") {
-        response = "Available commands: help, email, social, hire, clear";
-      } else if (cmd === "email") {
-        response = "→ hirebikila1@gmail.com — Feel free to reach out!";
-      } else if (cmd === "social") {
-        response = "→ github.com/hirodinn | linkedin.com/in/hirodinn | instagram.com/hirodinn_ | x.com/hirodinn | +251972229619";
-      } else if (cmd === "hire") {
-        response = "→ I'm currently open to new opportunities! Let's chat.";
-      } else if (cmd === "clear") {
-        setOutput([]);
-        setCommand("");
-        return;
-      } else {
-        response = `command not found: ${cmd}. Type 'help' for available commands.`;
-      }
-
-      setOutput((prev) => [...prev, `$ ${command}`, response]);
-      setCommand("");
-    }
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -125,55 +97,16 @@ const ContactSection = () => {
           </h2>
           <p className="text-sm text-muted-foreground mb-12 max-w-2xl">
             Got a project in mind? Want to collaborate? Or just want to say hi?
-            Use the terminal for quick commands and the form to send a message directly.
+            Use the form to send a message directly.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Interactive terminal */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="border border-border bg-card/50 backdrop-blur-sm box-glow"
-          >
-            <div className="px-4 py-2 border-b border-border flex items-center gap-2">
-              <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-destructive/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
-                <span className="w-2.5 h-2.5 rounded-full bg-primary/60" />
-              </div>
-              <span className="text-[10px] text-muted-foreground ml-2">contact — bash</span>
-            </div>
-            <div className="p-4 font-mono text-sm min-h-[280px]">
-              <p className="text-muted-foreground mb-1">Welcome! Type <span className="text-primary">'help'</span> for available commands.</p>
-              <div className="space-y-1">
-                {output.map((line, i) => (
-                  <p key={i} className={line.startsWith("$") ? "text-muted-foreground" : "text-primary/80"}>
-                    {line}
-                  </p>
-                ))}
-              </div>
-              <div className="flex items-center mt-2">
-                <span className="text-primary/60 mr-2">visitor@portfolio:~$</span>
-                <input
-                  type="text"
-                  value={command}
-                  onChange={(e) => setCommand(e.target.value)}
-                  onKeyDown={handleCommand}
-                  className="flex-1 bg-transparent outline-none text-foreground caret-primary"
-                  placeholder="type a command..."
-                  autoComplete="off"
-                />
-              </div>
-            </div>
-          </motion.div>
-
+        <div className="max-w-3xl mx-auto">
           {/* Send message form */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.35 }}
+            transition={{ delay: 0.2 }}
             className="border border-border bg-card/50 backdrop-blur-sm box-glow p-5 md:p-6"
           >
             <p className="text-xs text-muted-foreground font-mono mb-4">
