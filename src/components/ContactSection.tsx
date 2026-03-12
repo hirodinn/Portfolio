@@ -1,11 +1,14 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Github, Instagram, Linkedin, Mail, Phone, Twitter } from "lucide-react";
 
 const socialLinks = [
-  { label: "github", url: "#", icon: "⌘" },
-  { label: "linkedin", url: "#", icon: "◉" },
-  { label: "twitter/x", url: "#", icon: "✦" },
-  { label: "email", url: "mailto:hello@alexchen.dev", icon: "◈" },
+  { label: "github", url: "https://github.com/hirodinn", icon: Github },
+  { label: "linkedin", url: "https://www.linkedin.com/in/hirodinn/", icon: Linkedin },
+  { label: "twitter/x", url: "https://x.com/hirodinn", icon: Twitter },
+  { label: "instagram", url: "https://www.instagram.com/hirodinn_/", icon: Instagram },
+  { label: "email", url: "mailto:hirebikila1@gmail.com", icon: Mail },
+  { label: "phone", url: "tel:+251972229619", icon: Phone },
 ];
 
 const ContactSection = () => {
@@ -22,9 +25,9 @@ const ContactSection = () => {
       if (cmd === "help") {
         response = "Available commands: help, email, social, hire, clear";
       } else if (cmd === "email") {
-        response = "→ hello@alexchen.dev — Feel free to reach out!";
+        response = "→ hirebikila1@gmail.com — Feel free to reach out!";
       } else if (cmd === "social") {
-        response = "→ github.com/alexchen | linkedin.com/in/alexchen | x.com/alexchen";
+        response = "→ github.com/hirodinn | linkedin.com/in/hirodinn | instagram.com/hirodinn_ | x.com/hirodinn | +251972229619";
       } else if (cmd === "hire") {
         response = "→ I'm currently open to new opportunities! Let's chat.";
       } else if (cmd === "clear") {
@@ -109,9 +112,11 @@ const ContactSection = () => {
             <a
               key={link.label}
               href={link.url}
-              className="flex items-center gap-2 px-4 py-2 border border-border text-xs text-muted-foreground hover:text-primary hover:border-primary/40 hover:box-glow transition-all duration-300 font-mono"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-4 py-2 border border-border text-xs text-muted-foreground hover:text-primary hover:border-primary/40 hover:box-glow transition-all duration-300 font-mono"
             >
-              <span>{link.icon}</span>
+              <link.icon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:scale-110" />
               <span>{link.label}</span>
             </a>
           ))}

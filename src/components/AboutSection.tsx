@@ -5,7 +5,7 @@ import { useRef } from "react";
 const stats = [
   { label: "years_experience", value: "5+", icon: "⚡" },
   { label: "projects_shipped", value: "40+", icon: "🚀" },
-  { label: "cups_of_coffee", value: "∞", icon: "☕" },
+  { label: "songs_on_repeat", value: "∞", icon: "🎵" },
   { label: "commits_this_year", value: "1.2k", icon: "📦" },
 ];
 
@@ -49,7 +49,7 @@ const AboutSection = () => {
                 <p><span className="text-muted-foreground">  into elegant, user-friendly solutions.</span></p>
                 <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">When I'm not coding, you'll find me contributing</span></p>
                 <p><span className="text-muted-foreground">  to open source, writing technical articles, or</span></p>
-                <p><span className="text-muted-foreground">  exploring new technologies over coffee.</span></p>
+                <p><span className="text-muted-foreground">  exploring new technologies with music on repeat.</span></p>
                 <p className="pt-4 text-primary/60">
                   dev@portfolio:~$ <span className="cursor-blink">▊</span>
                 </p>

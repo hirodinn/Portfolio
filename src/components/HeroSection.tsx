@@ -39,10 +39,10 @@ const HeroSection = () => {
 
   const codeLines = [
     { prefix: "const", name: " developer", op: " = {", color: "text-neon-cyan" },
-    { prefix: "  name:", value: ' "Alex Chen"', comma: ",", color: "text-primary" },
-    { prefix: "  location:", value: ' "San Francisco"', comma: ",", color: "text-primary" },
+    { prefix: "  name:", value: ' "Hire Bikila"', comma: ",", color: "text-primary" },
+    { prefix: "  location:", value: ' "Addis Ababa, Ethiopia"', comma: ",", color: "text-primary" },
     { prefix: "  passion:", value: ' "Building the Future"', comma: ",", color: "text-neon-purple" },
-    { prefix: "  coffee:", value: " true", comma: ",", color: "text-accent" },
+    { prefix: "  music:", value: " true", comma: ",", color: "text-accent" },
     { prefix: "}", value: "", comma: ";", color: "" },
   ];
 
