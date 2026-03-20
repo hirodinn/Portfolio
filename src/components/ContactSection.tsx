@@ -90,7 +90,7 @@ const ContactSection = () => {
           animate={isInView ? { opacity: 1 } : {}}
         >
           <p className="text-xs text-muted-foreground mb-2 font-mono">
-            <span className="text-primary">04.</span> // get_in_touch
+            <span className="text-primary">05.</span> // get_in_touch
           </p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
             <span className="text-primary text-glow">$</span> ./contact.sh
