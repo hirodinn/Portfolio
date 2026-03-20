@@ -32,9 +32,9 @@ const AboutSection = () => {
       if (cmd === "help") {
         response = "Available commands: help, bio, stack, hobbies, music, location, social, email, hire, availability, clear";
       } else if (cmd === "bio") {
-        response = "→ Software engineer focused on clean, scalable, and user-centered digital products.";
+        response = "→ Software Engineering student at Addis Ababa University focused on building clean, scalable, user-centered products.";
       } else if (cmd === "stack") {
-        response = "→ React | TypeScript | Node.js | Cloud | Modern CSS";
+        response = "→ MERN stack | Next.js (frontend) | Python specialization: FastAPI & Django | PostgreSQL";
       } else if (cmd === "hobbies") {
         response = "→ Music production, listening sessions, open-source exploration, and side projects.";
       } else if (cmd === "music") {
@@ -90,9 +90,9 @@ const AboutSection = () => {
               <span className="text-[10px] text-muted-foreground">bash — 80×24</span>
             </div>
             <div className="p-6 font-mono text-sm space-y-3 leading-relaxed w-full">
-              <p><span className="text-primary">→</span> <span className="text-muted-foreground">Full-stack developer with a passion for building performant, accessible web applications.</span></p>
-              <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">I specialize in React, Node.js, and cloud infrastructure. I love turning complex problems into elegant, user-friendly solutions.</span></p>
-              <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">When I'm not coding, you'll find me contributing to open source, writing technical articles, or exploring new technologies with music on repeat.</span></p>
+              <p><span className="text-primary">→</span> <span className="text-muted-foreground">Software Engineering student at Addis Ababa University with a strong focus on building production-ready digital products.</span></p>
+              <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">Core stack: MERN. Frontend specialization in Next.js, plus Python backend specialization using FastAPI and Django.</span></p>
+              <p className="pt-2"><span className="text-primary">→</span> <span className="text-muted-foreground">Database strength in PostgreSQL, with emphasis on scalable architecture and clean developer experience.</span></p>
             </div>
           </div>
         </motion.div>
