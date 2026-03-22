@@ -16,6 +16,19 @@ const experiences = [
     stack: ["MERN", "Next.js", "Nest.js", "Django", "MongoDB", "PostgreSQL"],
   },
   {
+    role: "OpenPsi Engineer",
+    company: "iCog Labs",
+    period: "2024 — 2025",
+    type: "Research / Engineering",
+    highlights: [
+      "Worked on OpenCog-based cognitive architecture modules with focus on OpenPsi goal and drive modeling.",
+      "Implemented and tuned behavior logic for agent decision flows and motivational dynamics.",
+      "Collaborated with AI researchers to test, evaluate, and refine reasoning behaviors in experimental environments.",
+      "Contributed to maintainable engineering workflows around research prototypes and iterative model validation.",
+    ],
+    stack: ["OpenCog", "OpenPsi", "Python", "AI Research"],
+  },
+  {
     role: "Freelance Full Stack Developer",
     company: "Independent",
     period: "2023 — Present",
