@@ -18,7 +18,7 @@ const experiences = [
   {
     role: "Junior Full Stack Developer",
     company: "Solanova",
-    period: "2025 — March 2026",
+    period: "January 2025 — March 2026",
     type: "Full-time",
     highlights: [
       "Owned full features across the MERN stack on production-level projects, from API design to polished frontend delivery.",
@@ -31,7 +31,7 @@ const experiences = [
   {
     role: "OpenPsi Engineer",
     company: "iCog Labs",
-    period: "2024 — 2025",
+    period: "May 2024 — January 2025",
     type: "Research / Engineering",
     highlights: [
       "Worked on OpenCog-based cognitive architecture modules with focus on OpenPsi goal and drive modeling.",
@@ -44,7 +44,7 @@ const experiences = [
   {
     role: "Freelance Full Stack Developer",
     company: "Independent",
-    period: "2023 — Present",
+    period: "August 2023 — Present",
     type: "Contract",
     highlights: [
       "Delivered client platforms end-to-end with MERN, from discovery and scoping to production rollout.",
