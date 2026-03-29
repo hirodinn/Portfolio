@@ -3,9 +3,22 @@ import { useRef } from "react";
 
 const experiences = [
   {
+    role: "Mid-level Full Stack Developer",
+    company: "Mereb Technologies",
+    period: "March 2026 — Present",
+    type: "Full-time",
+    highlights: [
+      "Leading the development of high-performance web applications, focusing on scalable architecture and modular component design.",
+      "Architecting robust backend services and optimizing API performance to support complex enterprise-level workflows.",
+      "Implementing advanced frontend patterns and state management solutions to enhance user experience and maintainability.",
+      "Collaborating on engineering best practices, including automated testing, containerization, and CI/CD pipeline optimization.",
+    ],
+    stack: ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "Docker"],
+  },
+  {
     role: "Junior Full Stack Developer",
     company: "Solanova",
-    period: "2025 — Present",
+    period: "2025 — March 2026",
     type: "Full-time",
     highlights: [
       "Owned full features across the MERN stack on production-level projects, from API design to polished frontend delivery.",
