@@ -8,7 +8,7 @@ const stats = [
   { label: "songs_on_repeat", value: "∞", icon: "🎵" },
   { label: "commits_this_year", value: "1.2k", icon: "📦" },
   { label: "response_time", value: "4h", icon: "⏱️" },
-  { label: "global_collabs", value: "15+", icon: "🌍" },
+  { label: "technologies_used", value: "18+", icon: "🧩" },
 ];
 
 const AboutSection = () => {
