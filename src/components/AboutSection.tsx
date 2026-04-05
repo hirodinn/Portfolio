@@ -3,8 +3,8 @@ import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { label: "years_experience", value: "5+", icon: "⚡" },
-  { label: "projects_shipped", value: "40+", icon: "🚀" },
+  { label: "years_experience", value: "3+", icon: "⚡" },
+  { label: "projects_shipped", value: "20+", icon: "🚀" },
   { label: "songs_on_repeat", value: "∞", icon: "🎵" },
   { label: "commits_this_year", value: "1.2k", icon: "📦" },
   { label: "response_time", value: "4h", icon: "⏱️" },
