@@ -20,17 +20,17 @@ type Project = {
 
 const projects = [
   {
-    id: "01",
-    title: "NotePad+",
-    summary: "Notes platform with folders, auth, and a clean dashboard feed for organizing personal and team ideas.",
-    impact: "Improved note organization flow and reduced friction from idea capture to retrieval.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-    category: "fullstack",
+    id: "00",
+    title: "AI Task Interruption Recovery System",
+    summary: "Development companion tool that silently tracks workspace activity, groups events into logical sessions, and uses AI to generate intelligent summaries for seamless task resumption.",
+    impact: "Reduced context-switching tax and cognitive load by providing developers with instant, automated \"where I left off\" reports after interruptions.",
+    tags: ["React", "TypeScript", "FastAPI", "Python", "Tailwind CSS", "LLMs"],
+    category: "tooling",
     year: "2026",
     status: "LIVE",
-    liveUrl: "https://notepad-self-iota.vercel.app/",
-    sourceUrl: "https://github.com/hirodinn/notepad",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353446/notepad_ou8yxx.png",
+    liveUrl: "",
+    sourceUrl: "https://github.com/hirodinn/AI-Task-Interruption-and-Recovery-System",
+    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1776603328/Screenshot_from_2026-04-19_15-53-02_spxmog.png",
   },
   {
     id: "02",
@@ -44,6 +44,19 @@ const projects = [
     liveUrl: "https://property-listing-platform-eta.vercel.app/",
     sourceUrl: "https://github.com/hirodinn/Property-Listing-Platform",
     image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353316/prop_cqlgdy.png",
+  },
+  {
+    id: "01",
+    title: "NotePad+",
+    summary: "Notes platform with folders, auth, and a clean dashboard feed for organizing personal and team ideas.",
+    impact: "Improved note organization flow and reduced friction from idea capture to retrieval.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    category: "fullstack",
+    year: "2026",
+    status: "LIVE",
+    liveUrl: "https://notepad-self-iota.vercel.app/",
+    sourceUrl: "https://github.com/hirodinn/notepad",
+    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353446/notepad_ou8yxx.png",
   },
   {
     id: "03",
@@ -145,16 +158,18 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="absolute top-3 right-3 flex items-center gap-2">
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-primary/40 text-primary bg-background/85 hover:bg-primary/10 transition-colors"
-                    aria-label={`Open live site for ${project.title}`}
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    <span>live</span>
-                  </a>
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-primary/40 text-primary bg-background/85 hover:bg-primary/10 transition-colors"
+                      aria-label={`Open live site for ${project.title}`}
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      <span>live</span>
+                    </a>
+                  ) : null}
                   <a
                     href={project.sourceUrl}
                     target="_blank"
