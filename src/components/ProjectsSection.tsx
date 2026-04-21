@@ -21,6 +21,19 @@ type Project = {
 const projects = [
   {
     id: "00",
+    title: "Mereb Technology Website",
+    summary: "Corporate website for a global software outsourcing company, built to present services, trust signals, and conversion-focused user journeys.",
+    impact: "Improved lead-generation flow and brand credibility with SEO-ready pages, strong content architecture, and performance-first frontend delivery.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Sentry"],
+    category: "frontend",
+    year: "2026",
+    status: "LIVE",
+    liveUrl: "https://www.merebtechnology.com/",
+    sourceUrl: "",
+    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1776763862/Screenshot_from_2026-04-21_12-28-18_yimm5d.png",
+  },
+  {
+    id: "01",
     title: "AI Task Interruption Recovery System",
     summary: "Development companion tool that silently tracks workspace activity, groups events into logical sessions, and uses AI to generate intelligent summaries for seamless task resumption.",
     impact: "Reduced context-switching tax and cognitive load by providing developers with instant, automated \"where I left off\" reports after interruptions.",
@@ -46,7 +59,7 @@ const projects = [
     image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353316/prop_cqlgdy.png",
   },
   {
-    id: "01",
+    id: "03",
     title: "NotePad+",
     summary: "Notes platform with folders, auth, and a clean dashboard feed for organizing personal and team ideas.",
     impact: "Improved note organization flow and reduced friction from idea capture to retrieval.",
@@ -59,7 +72,7 @@ const projects = [
     image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353446/notepad_ou8yxx.png",
   },
   {
-    id: "03",
+    id: "04",
     title: "Habesha Wear",
     summary: "Full-stack MERN e-commerce platform for traditional and modern Habesha clothing with role-based access for customer, vendor, admin, and owner.",
     impact: "Streamlined end-to-end commerce workflows from catalog browsing and checkout to vendor stock control and admin approval dashboards.",
@@ -170,16 +183,18 @@ const ProjectsSection = () => {
                       <span>live</span>
                     </a>
                   ) : null}
-                  <a
-                    href={project.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-border text-foreground bg-background/85 hover:border-primary/30 transition-colors"
-                    aria-label={`Open source code for ${project.title}`}
-                  >
-                    <Github className="h-3.5 w-3.5" />
-                    <span>code</span>
-                  </a>
+                  {project.sourceUrl ? (
+                    <a
+                      href={project.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-border text-foreground bg-background/85 hover:border-primary/30 transition-colors"
+                      aria-label={`Open source code for ${project.title}`}
+                    >
+                      <Github className="h-3.5 w-3.5" />
+                      <span>code</span>
+                    </a>
+                  ) : null}
                 </div>
               </div>
 
