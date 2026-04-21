@@ -23,6 +23,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_WEB3FORMS_KEY: ${{ secrets.VITE_WEB3FORMS_KEY }}
 
       # GitHub Pages serves 404.html for unknown paths — helps client-side routing if you add routes later.
       - name: SPA fallback
