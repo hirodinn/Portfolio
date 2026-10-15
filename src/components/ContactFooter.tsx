@@ -61,14 +61,8 @@ export const ContactFooter: React.FC = () => {
 
     try {
       if (!WEB3FORMS_ACCESS_KEY) {
-        // Fallback for local preview without key
-        const mailtoSubject = encodeURIComponent(`Portfolio Message from ${formData.name}`);
-        const mailtoBody = encodeURIComponent(
-          `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-        );
-        window.location.href = `mailto:${CONTACT_DATA.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
-        setSendState('success');
-        setStatusMessage('Opening your email client...');
+        setSendState('error');
+        setStatusMessage('Form service is not configured yet. Please add VITE_WEB3FORMS_KEY in Vercel.');
         return;
       }
 
@@ -111,15 +105,15 @@ export const ContactFooter: React.FC = () => {
           <div className="contact-editorial-col">
             <div className="contact-availability-tag">
               <span className="contact-live-dot" />
-              <span>Available for high-impact roles</span>
+              <span>Available for new projects & roles</span>
             </div>
 
             <h2 className="contact-editorial-title">
-              Let’s build something <em>remarkable</em> together.
+              Let’s talk about your next <em>project</em>.
             </h2>
 
             <p className="contact-editorial-sub">
-              Have an engineering challenge, an ambitious venture, or an open role? Let’s talk through how we can solve it.
+              Whether you have an open role, need help shipping a project, or want to discuss technical ideas, feel free to reach out.
             </p>
 
             <div className="contact-channels-box">
@@ -202,7 +196,7 @@ export const ContactFooter: React.FC = () => {
                     id="contact-message"
                     required
                     rows={3}
-                    placeholder="Tell me about what you're building..."
+                    placeholder="Tell me about your project or team..."
                     value={formData.message}
                     onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
                   />

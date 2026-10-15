@@ -91,6 +91,7 @@ export interface EducationItem {
   gpa?: number;
   gpaDecimals?: number;
   subtitle?: string;
+  url?: string;
 }
 
 export interface ContactData {
@@ -119,13 +120,13 @@ export const HERO_DATA: HeroData = {
   displayWord: 'BUILD',
   statusBadge: {
     status: 'available',
-    text: 'Available for high-impact roles',
+    text: 'Available for new roles and projects',
   },
   headlinePrefix: 'Software engineer building systems that stay ',
   headlineEmphasis: 'fast and reliable',
-  headlineSuffix: ' after launch.',
+  headlineSuffix: ' in production.',
   summary:
-    'I am a full-stack engineer driven by product thinking, clean architecture, and technical rigor. Currently completing my Software Engineering degree at Addis Ababa University, I specialize in taking ambitious digital products from first architectural principles all the way to rock-solid production.',
+    'I build web applications and backend systems with a focus on maintainability and practical performance. Currently studying Software Engineering at Addis Ababa University, I work across the stack from responsive user interfaces to containerized deployments.',
   techStack: [
     'TypeScript',
     'Python',
@@ -146,27 +147,27 @@ export const HERO_DATA: HeroData = {
   ],
   timezone: 'Africa/Addis_Ababa',
   highlightCard: {
-    quote: 'Building production systems that stay fast, reliable, and clean after launch.',
+    quote: 'Focused on building clean, dependable software without unnecessary complexity.',
     author: 'Hire Bikila',
     role: 'Full-Stack Software Engineer',
   },
   socialProof: {
-    title: 'Software Engineering · AAU',
-    subtitle: 'Proven engineering for scale, stability, and speed.',
+    title: 'B.Sc. Software Engineering · AAU',
+    subtitle: 'Hands-on experience across backend systems and modern web stacks.',
   },
 };
 
 export const ABOUT_DATA: AboutData = {
-  bigQuotePrefix: 'I bridge the gap between ',
-  bigQuoteEmphasis: 'low-level systems precision and high-level product design',
-  bigQuoteSuffix: ' — crafting software that is fast, resilient, and built to scale.',
+  bigQuotePrefix: 'I focus on building ',
+  bigQuoteEmphasis: 'reliable systems from the database up',
+  bigQuoteSuffix: ', with clear structure and solid fundamentals.',
   description:
-    'Based in Addis Ababa, I craft production-ready applications by pairing rigorous computer science fundamentals with modern cloud-native workflows. Whether designing high-throughput concurrent backends in modern C++ and Python, structuring resilient APIs in NestJS, or engineering fluid web interfaces in React and TypeScript, I build with an uncompromising focus on speed, reliability, and human-centered design.',
+    'Most of my work centers on backend architecture, API design, and practical product delivery. I value straightforward abstractions over unnecessary complexity, favoring patterns that keep codebases easy to reason about and maintain. My day-to-day work spans high-throughput endpoints in C++, asynchronous services in Python, and full-stack web applications in React and NestJS.',
   stats: [
-    { value: 3, label: 'Professional engineering roles' },
-    { value: 5, suffix: '+', label: 'Production systems shipped' },
-    { value: 15, suffix: '+', label: 'Technologies & modern tools' },
-    { value: 3, label: 'Core languages: TS, Python, C++' },
+    { value: 3, label: 'Engineering roles held' },
+    { value: 5, suffix: '+', label: 'Production projects shipped' },
+    { value: 15, suffix: '+', label: 'Technologies and tools used' },
+    { value: 3, label: 'Core languages: TS, C++, Python' },
   ],
 };
 
@@ -174,10 +175,11 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     role: 'Mid-Level Full Stack Engineer',
     company: 'Mereb Technologies',
-    period: 'January 2026 to present',
+    period: 'January 2026 - Present',
     bullets: [
-      'Engineer and maintain production applications across architecture, implementation, and deployment.',
-      'Improve backend performance, system reliability, and development infrastructure.',
+      'Build and maintain full-stack web applications and backend services using React, Node.js, and C++.',
+      'Deploy and monitor containerized services on Hetzner servers using Docker and Cloudflare Tunnels.',
+      'Optimize backend endpoints and integrate Python microservices into the core application workflow.',
     ],
     art: 'grid',
     seed: 5,
@@ -185,10 +187,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     role: 'OpenPsi Engineer',
     company: 'iCog Labs',
-    period: 'September 2025 to March 2026',
+    period: 'September 2025 - March 2026',
     bullets: [
-      'Contributed to OpenPsi, an OpenCog cognitive architecture for goal-driven decision-making.',
-      'Supported the development of cognitive reasoning and intelligent agent behavior.',
+      'Contributed to OpenPsi within the OpenCog framework, implementing decision logic and state evaluation for autonomous agents.',
+      'Collaborated with the research team to test cognitive reasoning behaviors and debug execution pipelines.',
     ],
     art: 'net',
     seed: 9,
@@ -196,10 +198,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     role: 'Junior Full Stack Engineer',
     company: 'Solanova Tech Solutions PLC',
-    period: 'September 2025 to January 2026',
+    period: 'September 2025 - January 2026',
     bullets: [
-      'Delivered full-stack features across web applications for property rental and team collaboration.',
-      'Integrated frontend interfaces with backend services and data persistence layers.',
+      'Developed responsive user interfaces in React and connected them with NestJS backend APIs.',
+      'Implemented relational database models, wrote data migrations, and managed state for team collaboration workflows.',
     ],
     art: 'chat',
     seed: 13,
@@ -210,9 +212,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     key: 'talent',
     title: 'Mereb Talent',
-    subtitle: 'Recruitment and verification',
+    subtitle: 'Recruitment & Verification Platform',
     description:
-      "Mereb's recruitment and talent verification platform, with an administrative portal for managing recruitment operations. I optimized backend request handling using C++ and Drogon, and deployed and maintained the production infrastructure on Hetzner.",
+      'A recruitment and candidate verification platform with an admin portal for tracking applications. I built performance-critical backend endpoints in C++ using Drogon to reduce latency, and managed production deployment on Hetzner with Docker and Cloudflare Tunnels.',
     stack: [
       'React',
       'Node.js',
@@ -228,19 +230,19 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     key: 'lean',
     title: 'LEAN Healthcare ERP',
-    subtitle: 'Enterprise resource planning',
+    subtitle: 'Medical Supply & Inventory ERP',
     description:
-      'A full-scale ERP for LEAN Healthcare Solutions, used to manage healthcare product imports and trading operations. I contributed to the application and supported its deployment and containerized infrastructure on Hetzner.',
-    stack: ['React', 'Docker', 'Hetzner'],
+      'An enterprise system built for LEAN Healthcare Solutions to manage medical supply imports, warehouse inventory, and customer orders. I developed core user workflows in React and handled containerized staging and production deployments on Hetzner.',
+    stack: ['React', 'Docker', 'Nginx', 'Hetzner'],
     url: 'https://lean.merebtech.com',
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
   },
   {
     key: 'nodelala',
     title: 'Nodelala',
-    subtitle: 'Property rental platform',
+    subtitle: 'Property Rental Platform',
     description:
-      'A full-stack property rental platform. I implemented the rental workflows, client-side state management, and persistent data integration.',
+      'A full-stack property rental platform connecting landlords and tenants. I developed the listing and booking interfaces, managed client state with Redux, and built RESTful endpoints on Node.js and Express with MongoDB.',
     stack: ['MongoDB', 'Express', 'React', 'Redux', 'Node.js'],
     url: 'https://nodelala.et',
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
@@ -248,20 +250,21 @@ export const PROJECTS_DATA: ProjectItem[] = [
   {
     key: 'yenext',
     title: 'Yenext',
-    subtitle: 'Team collaboration',
+    subtitle: 'Team Workspace & Collaboration',
     description:
-      'A group collaboration app where organizations coordinate work, manage tasks, and communicate in structured groups. Built at Solanova Tech Solutions, where I delivered full-stack features and integrated the interface with backend services.',
-    stack: ['React', 'NestJS'],
+      'A workspace application for teams to coordinate projects, assign tasks, and communicate in dedicated groups. Built during my time at Solanova Tech Solutions, where I developed React UI components and integrated them with NestJS APIs.',
+    stack: ['React', 'NestJS', 'PostgreSQL'],
     url: 'https://yenext.org',
     image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
   },
   {
     key: 'site',
-    title: 'Mereb Technologies website',
-    subtitle: 'Company site',
-    description: 'The company website, built with Next.js and server-side rendering.',
-    stack: ['Next.js', 'SSR'],
-    url: 'https://merebtechnologies.com',
+    title: 'Mereb Technologies Website',
+    subtitle: 'Corporate Site & Landing Page',
+    description:
+      'The official corporate website for Mereb Technologies, built with Next.js for server-side rendering, fast initial page loads, and structured metadata.',
+    stack: ['Next.js', 'SSR', 'i18n', 'SEO', 'GEO', 'Optimization'],
+    url: 'https://merebtechnology.com',
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
   },
 ];
@@ -293,10 +296,10 @@ export const EDUCATION_DATA: EducationItem[] = [
   {
     type: 'Education',
     institution: 'Addis Ababa University',
-    period: '2024 — Present',
+    period: '2024 - Present',
     title: 'BSc in Software Engineering',
     description:
-      'Pursuing foundational software engineering coursework with a strong focus on data structures, algorithms, operating systems, databases, and computer networks.',
+      'Coursework includes data structures, algorithms, operating systems, database management systems, computer networks, and software architecture, with practical projects in C and C++.',
     skills: ['Data Structures', 'Algorithms', 'Operating Systems', 'Databases'],
     badge: 'Degree',
   },
@@ -306,19 +309,20 @@ export const EDUCATION_DATA: EducationItem[] = [
     period: '2024',
     title: 'Software Engineering Training Program',
     description:
-      'Rigorous problem-solving and algorithmic training program emphasizing competitive programming, high-efficiency data structures, and advanced time-complexity optimization.',
+      'Intensive training in data structures and algorithmic problem solving. Practiced competitive programming with an emphasis on graph algorithms, dynamic programming, and time-complexity optimization.',
     skills: ['Algorithms', 'System Design', 'Problem Solving', 'Data Structures'],
     badge: 'Fellowship',
   },
   {
     type: 'Certification',
-    institution: 'Amazon Web Services (AWS)',
+    institution: 'Udemy',
     period: 'Certified',
     title: 'AWS Cloud Essentials',
     description:
-      'Core competencies across cloud fundamentals, AWS compute services (EC2, Lambda), scalable cloud storage (S3), IAM security, and networking architecture.',
+      'Practical foundation in AWS core services, covering EC2 compute instances, S3 object storage, Lambda serverless functions, VPC networking, and IAM security policies.',
     skills: ['Cloud Computing', 'EC2 & S3', 'IAM Security', 'Cloud Architecture'],
     badge: 'Certification',
+    url: 'https://www.udemy.com/certificate/UC-2ea2a669-126b-4072-abab-91db9569f104',
   },
 ];
 

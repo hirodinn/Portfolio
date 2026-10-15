@@ -35,7 +35,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Subtitle & Summary */}
           <p className="omnic-subtitle">
-            Software that inspires. Systems that scale.
+            Full-stack engineering with a focus on practical performance.
           </p>
           <p className="omnic-description">
             {HERO_DATA.summary}
@@ -81,8 +81,8 @@ export const HeroSection: React.FC = () => {
               <span className="omnic-tech-more" title="More technologies">+5</span>
             </div>
             <div className="omnic-proof-meta">
-              <strong>{HERO_DATA.socialProof?.title || 'Software Engineering · AAU'}</strong>
-              <span>{HERO_DATA.socialProof?.subtitle || 'Engineering resilient systems and modern web products.'}</span>
+              <strong>{HERO_DATA.socialProof?.title || 'B.Sc. Software Engineering · AAU'}</strong>
+              <span>{HERO_DATA.socialProof?.subtitle || 'Hands-on experience across backend systems and modern web stacks.'}</span>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ export const HeroSection: React.FC = () => {
               <span className="omnic-available-label">AVAILABLE FOR</span>
             </div>
             <strong className="omnic-available-title">
-              Freelance & High-Impact Roles
+              Freelance & Full-Time Roles
             </strong>
           </div>
 
@@ -115,7 +115,7 @@ export const HeroSection: React.FC = () => {
             <div className="omnic-quote-icon">“</div>
             <p className="omnic-quote-text">
               {HERO_DATA.highlightCard?.quote ||
-                'Building production systems that stay fast, reliable, and clean after launch.'}
+                'Focused on building clean, dependable software without unnecessary complexity.'}
             </p>
             <div className="omnic-quote-author">
               <img

@@ -328,7 +328,7 @@ export const ProjectsSection: React.FC = () => {
             </div>
 
             <div className="rotary-instruction-hint">
-              <span>✦</span> Keep scrolling down to spin to the next project
+              <span>✦</span> Scroll down to browse projects
             </div>
           </div>
         </div>

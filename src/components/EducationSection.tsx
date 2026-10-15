@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { EDUCATION_DATA } from '@/data/portfolioData';
-import { GraduationCap, Award, Cloud, Sparkles, CheckCircle2 } from 'lucide-react';
+import { GraduationCap, Award, Cloud, Sparkles, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 export const EducationSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -63,7 +63,7 @@ export const EducationSection: React.FC = () => {
             </h2>
           </div>
           <p className="edu-header-desc">
-            Rigorous academic foundations combined with competitive algorithmic problem-solving and cloud infrastructure verification.
+            Computer science fundamentals, competitive algorithmic training, and hands-on cloud architecture.
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export const EducationSection: React.FC = () => {
                   </div>
                   <div className="edu-status-pill in-progress">
                     <span className="edu-pulse-dot" />
-                    <span>Enrolled · 2024 — Present</span>
+                    <span>Enrolled · 2024 - Present</span>
                   </div>
                 </div>
 
@@ -95,7 +95,7 @@ export const EducationSection: React.FC = () => {
                     </div>
                     <div>
                       <span className="edu-institution-name">{degreeItem.institution}</span>
-                      <span className="edu-sub-campus">School of Information Technology & Engineering</span>
+                      <span className="edu-sub-campus">School of Information Technology and Engineering</span>
                     </div>
                   </div>
 
@@ -143,7 +143,7 @@ export const EducationSection: React.FC = () => {
                     </div>
                     <div>
                       <span className="edu-institution-name">{trainingItem.institution}</span>
-                      <span className="edu-sub-campus">Competitive Programming & Scalable Systems</span>
+                      <span className="edu-sub-campus">Competitive Programming and Algorithmic Training</span>
                     </div>
                   </div>
 
@@ -172,7 +172,7 @@ export const EducationSection: React.FC = () => {
           {certItem && (
             <div className="edu-row-center rv">
               <article className="edu-card edu-card-primary edu-card-centered aws-box">
-                <div className="edu-watermark" aria-hidden="true">AWS</div>
+                <div className="edu-watermark" aria-hidden="true">Udemy</div>
 
                 <div className="edu-card-head">
                   <div className="edu-index-tag">
@@ -180,10 +180,17 @@ export const EducationSection: React.FC = () => {
                     <span className="edu-index-sep">/</span>
                     <span className="edu-index-type">CLOUD CERTIFICATION</span>
                   </div>
-                  <div className="edu-status-pill certified">
+                  <a
+                    href={certItem.url || 'https://www.udemy.com/certificate/UC-2ea2a669-126b-4072-abab-91db9569f104'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="edu-status-pill certified edu-cert-link"
+                    title="View verified credential on Udemy"
+                  >
                     <Cloud size={12} />
                     <span>Verified Credential</span>
-                  </div>
+                    <ArrowUpRight size={13} className="edu-cert-arrow" />
+                  </a>
                 </div>
 
                 <div className="edu-primary-content">
@@ -193,7 +200,7 @@ export const EducationSection: React.FC = () => {
                     </div>
                     <div>
                       <span className="edu-institution-name">{certItem.institution}</span>
-                      <span className="edu-sub-campus">Cloud Practitioner Foundations & Architecture</span>
+                      <span className="edu-sub-campus">Cloud Architecture and AWS Fundamentals</span>
                     </div>
                   </div>
 

@@ -1581,16 +1581,18 @@ svg .o { fill: var(--accent); opacity: .35; }
 .edu-card {
   position: relative;
   border-radius: 24px;
-  background: radial-gradient(550px circle at var(--gx, 50%) var(--gy, 50%), color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%), var(--panel);
+  background: radial-gradient(280px circle at var(--gx, 50%) var(--gy, 50%), color-mix(in srgb, var(--accent) 5%, transparent), transparent 50%), var(--panel);
   border: 1px solid var(--line);
   overflow: hidden;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   transition: border-color .28s ease, transform .28s ease, box-shadow .28s ease;
 }
 
 .edu-card:hover {
   border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.12);
 }
 
 /* Primary Card */
@@ -1647,39 +1649,55 @@ svg .o { fill: var(--accent); opacity: .35; }
 .edu-status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 11px;
+  gap: 7px;
+  padding: 5px 12px;
   border-radius: 999px;
-  font: 600 0.72rem var(--d);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  color: var(--muted);
-}
-
-.edu-status-pill.in-progress {
-  color: #10B981;
-  border-color: rgba(16, 185, 129, 0.28);
-  background: rgba(16, 185, 129, 0.08);
-}
-
-.edu-status-pill.completed {
+  font: 600 0.74rem var(--d);
+  letter-spacing: 0.02em;
+  background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
   color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.edu-status-pill.in-progress,
+.edu-status-pill.completed,
 .edu-status-pill.certified {
-  color: #F59E0B;
-  border-color: rgba(245, 158, 11, 0.3);
-  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+}
+
+.edu-cert-link {
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.edu-cert-link:hover,
+.edu-status-pill.edu-cert-link:hover {
+  transform: translateY(-1px);
+  color: var(--on);
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.edu-cert-arrow {
+  transition: transform .2s ease;
+}
+
+.edu-cert-link:hover .edu-cert-arrow {
+  transform: translate(1px, -1px);
+  color: var(--on);
 }
 
 .edu-pulse-dot {
-  width: 6.5px;
-  height: 6.5px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 8px #10B981;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
   animation: beacon-blink 2s infinite ease-in-out;
 }
 
@@ -1712,9 +1730,9 @@ svg .o { fill: var(--accent); opacity: .35; }
 }
 
 .edu-icon-shield.aws {
-  color: #F59E0B;
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .edu-institution-name {
