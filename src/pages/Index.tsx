@@ -1,23 +1,26 @@
-import TerminalNav from "@/components/TerminalNav";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import SkillsSection from "@/components/SkillsSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
+import React from 'react';
+import DockNav from '@/components/DockNav';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import SkillsSection from '@/components/SkillsSection';
+import EducationSection from '@/components/EducationSection';
+import ContactFooter from '@/components/ContactFooter';
 
-const Index = () => (
-  <div className="min-h-screen bg-background">
-    <TerminalNav />
-    <HeroSection />
-    <AboutSection />
-    <SkillsSection />
-    <ExperienceSection />
-    <ProjectsSection />
-    <ContactSection />
-    <Footer />
-  </div>
-);
+const Index: React.FC = () => {
+  return (
+    <>
+      <DockNav />
+      <HeroSection />
+      <AboutSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      <SkillsSection />
+      <EducationSection />
+      <ContactFooter />
+    </>
+  );
+};
 
 export default Index;

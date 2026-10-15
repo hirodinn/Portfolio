@@ -1,143 +1,293 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import React, { useState } from 'react';
+import { SKILLS_DATA } from '@/data/portfolioData';
+import {
+  SiTypescript,
+  SiPython,
+  SiCplusplus,
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiNestjs,
+  SiDocker,
+  SiLinux,
+  SiHetzner,
+  SiCloudflare,
+  SiJavascript,
+  SiRedux,
+  SiTailwindcss,
+  SiPostgresql,
+  SiGit,
+  SiRedis,
+} from 'react-icons/si';
+import { FaJava, FaNetworkWired, FaDiagramProject } from 'react-icons/fa6';
+import { TbBinaryTree } from 'react-icons/tb';
 
-const skillCategories = [
+interface TechItem {
+  name: string;
+  category: 'Languages' | 'Backend' | 'Frontend' | 'DevOps' | 'Fundamentals';
+  roleTag: string;
+  isCore?: boolean;
+  icon: React.ReactNode;
+}
+
+// Row 1: 11 Primary Systems, Languages & Core DevOps using official brand icons from react-icons
+const ROW_1: TechItem[] = [
   {
-    title: "frontend",
-    icon: "◈",
-    skills: [
-      { name: "React", level: 98 },
-      { name: "Next.js", level: 93 },
-      { name: "TypeScript", level: 92 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "shadcn/ui", level: 90 },
-      { name: "Three.js / WebGL", level: 70 },
-    ],
+    name: 'TypeScript',
+    category: 'Languages',
+    roleTag: 'Primary Language',
+    isCore: true,
+    icon: <SiTypescript size={46} color="#3178C6" />,
   },
   {
-    title: "backend",
-    icon: "◆",
-    skills: [
-      { name: "Node.js / Express", level: 97 },
-      { name: "Python / FastAPI", level: 92 },
-      { name: "TypeScript", level: 92 },
-      { name: "Django", level: 90 },
-      { name: "Nest.js", level: 90 },
-      { name: "GraphQL", level: 78 },
-    ],
+    name: 'Python',
+    category: 'Languages',
+    roleTag: 'Backend Services',
+    isCore: true,
+    icon: <SiPython size={46} color="#3776AB" />,
   },
   {
-    title: "devops",
-    icon: "◇",
-    skills: [
-      { name: "Linux / Nginx", level: 88 },
-      { name: "CI/CD Pipelines", level: 85 },
-      { name: "Docker / K8s", level: 82 },
-      { name: "AWS / GCP", level: 80 },
-    ],
+    name: 'C++ (Drogon)',
+    category: 'Languages',
+    roleTag: 'High-Perf Systems',
+    isCore: true,
+    icon: <SiCplusplus size={46} color="#00599C" />,
   },
   {
-    title: "database",
-    icon: "◉",
-    skills: [
-      { name: "PostgreSQL", level: 90 },
-      { name: "Redis", level: 88 },
-      { name: "MySQL", level: 87 },
-      { name: "MongoDB", level: 86 },
-    ],
+    name: 'React',
+    category: 'Frontend',
+    roleTag: 'UI Architecture',
+    isCore: true,
+    icon: <SiReact size={48} color="#61DAFB" />,
   },
   {
-    title: "programming_languages",
-    icon: "⬢",
-    skills: [
-      { name: "TypeScript", level: 92 },
-      { name: "JavaScript", level: 91 },
-      { name: "Python", level: 90 },
-      { name: "Java", level: 86 },
-      { name: "C++", level: 82 },
-    ],
+    name: 'Next.js',
+    category: 'Frontend',
+    roleTag: 'Full-Stack SSR',
+    isCore: true,
+    icon: <SiNextdotjs size={46} />,
   },
   {
-    title: "other_technologies",
-    icon: "◍",
-    skills: [
-      { name: "Git / GitHub", level: 95 },
-      { name: "REST APIs", level: 93 },
-      { name: "Supabase", level: 89 },
-      { name: "Firebase", level: 88 },
-      { name: "WebSockets", level: 88 },
-      { name: "Testing (Vitest / Playwright)", level: 86 },
-      { name: "Figma", level: 80 },
-    ],
+    name: 'Node.js',
+    category: 'Backend',
+    roleTag: 'Server Runtime',
+    isCore: true,
+    icon: <SiNodedotjs size={46} color="#5FA04E" />,
+  },
+  {
+    name: 'NestJS',
+    category: 'Backend',
+    roleTag: 'Microservices',
+    isCore: true,
+    icon: <SiNestjs size={46} color="#E0234E" />,
+  },
+  {
+    name: 'Docker',
+    category: 'DevOps',
+    roleTag: 'Containerization',
+    isCore: true,
+    icon: <SiDocker size={48} color="#2496ED" />,
+  },
+  {
+    name: 'Linux',
+    category: 'DevOps',
+    roleTag: 'Server Environment',
+    isCore: true,
+    icon: <SiLinux size={46} color="#FCC624" />,
+  },
+  {
+    name: 'Hetzner',
+    category: 'DevOps',
+    roleTag: 'Cloud Infrastructure',
+    isCore: true,
+    icon: <SiHetzner size={46} color="#D50C2D" />,
+  },
+  {
+    name: 'Cloudflare',
+    category: 'DevOps',
+    roleTag: 'Security & Tunnels',
+    isCore: false,
+    icon: <SiCloudflare size={46} color="#F38020" />,
   },
 ];
 
-const SkillsSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+// Row 2: 11 Fullstack, Data & Architecture Systems using official brand icons from react-icons
+const ROW_2: TechItem[] = [
+  {
+    name: 'JavaScript',
+    category: 'Languages',
+    roleTag: 'ESNext Standards',
+    isCore: false,
+    icon: <SiJavascript size={44} color="#F7DF1E" />,
+  },
+  {
+    name: 'Redux Toolkit',
+    category: 'Frontend',
+    roleTag: 'State Management',
+    isCore: false,
+    icon: <SiRedux size={46} color="#764ABC" />,
+  },
+  {
+    name: 'Tailwind CSS',
+    category: 'Frontend',
+    roleTag: 'Modern Styling',
+    isCore: false,
+    icon: <SiTailwindcss size={46} color="#06B6D4" />,
+  },
+  {
+    name: 'SQL & PostgreSQL',
+    category: 'Languages',
+    roleTag: 'Relational Schemas',
+    isCore: true,
+    icon: <SiPostgresql size={46} color="#4169E1" />,
+  },
+  {
+    name: 'Git Workflow',
+    category: 'DevOps',
+    roleTag: 'Version Control',
+    isCore: false,
+    icon: <SiGit size={46} color="#F05032" />,
+  },
+  {
+    name: 'Redis & Bull',
+    category: 'Backend',
+    roleTag: 'Queues & Caching',
+    isCore: false,
+    icon: <SiRedis size={46} color="#DC382D" />,
+  },
+  {
+    name: 'Microservices',
+    category: 'Backend',
+    roleTag: 'Distributed Systems',
+    isCore: true,
+    icon: <FaNetworkWired size={42} color="var(--accent)" />,
+  },
+  {
+    name: 'System Design',
+    category: 'Fundamentals',
+    roleTag: 'Scalable Systems',
+    isCore: true,
+    icon: <FaDiagramProject size={42} color="var(--accent)" />,
+  },
+  {
+    name: 'Data Structures',
+    category: 'Fundamentals',
+    roleTag: 'CS Core & Speed',
+    isCore: true,
+    icon: <TbBinaryTree size={46} color="var(--accent)" />,
+  },
+  {
+    name: 'Java',
+    category: 'Languages',
+    roleTag: 'Object-Oriented',
+    isCore: false,
+    icon: <FaJava size={46} color="#E76F00" />,
+  },
+];
+
+export const SkillsSection: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+
+  const categories = ['All', ...SKILLS_DATA.map((c) => c.category)];
+
+  const renderMarqueeRow = (items: TechItem[], direction: 'left' | 'right', speedSec: number) => {
+    // 3 duplicates guarantee seamless mathematically infinite translation without glitch
+    const duplicated = [...items, ...items, ...items];
+
+    return (
+      <div
+        className={`skills-logo-track-container ${direction === 'right' ? 'is-reverse' : ''}`}
+        style={{ '--marquee-duration': `${speedSec}s` } as React.CSSProperties}
+      >
+        <div className="skills-logo-track">
+          {duplicated.map((tech, index) => {
+            const matchesCategory =
+              activeCategory === 'All' || tech.category === activeCategory;
+
+            return (
+              <div
+                key={`${tech.name}-${index}`}
+                className={`skills-flip-card ${matchesCategory ? 'is-highlighted' : 'is-dimmed'}`}
+                tabIndex={0}
+                role="button"
+                aria-label={`${tech.name} - ${tech.roleTag}`}
+              >
+                <div className="skills-card-flipper">
+                  {/* FRONT FACE: ONLY the Official Brand Logo (Exact Pinterest Style) */}
+                  <div className="skills-card-front" aria-hidden="true">
+                    <div className="skills-card-logo-wrap">{tech.icon}</div>
+                  </div>
+
+                  {/* BACK FACE: Revealed on 180° Flip on Hover */}
+                  <div className="skills-card-back">
+                    <span className="skills-flip-name">{tech.name}</span>
+                    <span className="skills-flip-tag">{tech.roleTag}</span>
+                    <span className="skills-flip-category">{tech.category}</span>
+                    {tech.isCore && (
+                      <span className="skills-core-pill">Core Tech</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <section id="skills" className="py-32 px-4 relative" ref={ref}>
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-        >
-          <p className="text-xs text-muted-foreground mb-2 font-mono">
-            <span className="text-primary">02.</span> // tech_stack
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-16">
-            <span className="text-primary text-glow">$</span> cat skills.json
-          </h2>
-        </motion.div>
+    <section className="pad" id="skills">
+      <div className="in">
+        {/* Header Row */}
+        <div className="skills-header-row">
+          <div>
+            <h2 className="sh" style={{ marginBottom: '6px' }}>
+              Skills & Technologies
+            </h2>
+            <p className="skills-header-sub">
+              A visual marquee of languages, frameworks, and infrastructure tools. Hover any card to inspect.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillCategories.map((cat, ci) => (
-            <motion.div
-              key={cat.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + ci * 0.15 }}
-              className={`border border-border bg-card/30 backdrop-blur-sm hover:box-glow transition-all duration-500 group ${ci === 4 ? "lg:col-start-2" : ""} ${ci === 5 ? "lg:col-start-3" : ""}`}
-            >
-              <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-                <span className="text-xs text-muted-foreground font-mono leading-tight">
-                  <span className="text-primary">{cat.icon}</span>{" "}
-                  {cat.title === "programming_languages" ? (
-                    <>
-                      programming_
-                      <br />
-                      languages/
-                    </>
-                  ) : (
-                    `${cat.title}/`
-                  )}
-                </span>
-                <span className="text-[10px] text-muted-foreground/50">{cat.skills.length} items</span>
-              </div>
-              <div className="p-5 space-y-4">
-                {cat.skills.map((skill, si) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-1.5">
-                      <span className="text-xs text-foreground/80">{skill.name}</span>
-                      <span className="text-[10px] text-primary font-mono">{skill.level}%</span>
-                    </div>
-                    <div className="h-1 bg-secondary rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-primary rounded-full"
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : {}}
-                        transition={{ duration: 1, delay: 0.5 + ci * 0.2 + si * 0.1, ease: "easeOut" }}
-                        style={{
-                          boxShadow: "0 0 8px hsl(var(--primary) / 0.6)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+          {/* Interactive Category Filter Pills */}
+          <div className="skills-filter-pills" role="tablist" aria-label="Filter skills by domain">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`skills-filter-btn ${activeCategory === cat ? 'is-active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* CSS Marquee Logo Wall with 3D Flip Cards */}
+        <div className="skills-marquee-wall" aria-label="Interactive marquee of technology logos">
+          {/* Edge Gradient Shaders for seamless in/out fading */}
+          <div className="skills-wall-fade-left" aria-hidden="true" />
+          <div className="skills-wall-fade-right" aria-hidden="true" />
+
+          {/* Row 1: Glides Left */}
+          {renderMarqueeRow(ROW_1, 'left', 34)}
+
+          {/* Row 2: Glides Right */}
+          {renderMarqueeRow(ROW_2, 'right', 36)}
+        </div>
+
+        {/* Footer Hint */}
+        <div className="skills-marquee-footer">
+          <div className="skills-footer-metric">
+            <span className="metric-icon">✦</span>
+            <span>Hover any card to flip 180° and reveal details</span>
+          </div>
+          <div className="skills-footer-metric">
+            <span className="metric-icon">⚡</span>
+            <span>Streaming smoothly across 21+ production technologies</span>
+          </div>
         </div>
       </div>
     </section>

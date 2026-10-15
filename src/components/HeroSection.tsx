@@ -1,159 +1,135 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { HERO_DATA } from '@/data/portfolioData';
+import { SiTypescript, SiPython, SiCplusplus } from 'react-icons/si';
 
-const roles = [
-  "Full Stack Developer",
-  "System Architect",
-  "Open Source Contributor",
-  "Problem Solver",
-];
-
-const HeroSection = () => {
-  const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const role = roles[currentRole];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayText.length < role.length) {
-            setDisplayText(role.slice(0, displayText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2000);
-          }
-        } else {
-          if (displayText.length > 0) {
-            setDisplayText(displayText.slice(0, -1));
-          } else {
-            setIsDeleting(false);
-            setCurrentRole((prev) => (prev + 1) % roles.length);
-          }
-        }
-      },
-      isDeleting ? 40 : 80
-    );
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentRole]);
-
-  const codeLines = [
-    { prefix: "const", name: " developer", op: " = {", color: "text-neon-cyan" },
-    { prefix: "  name:", value: ' "Hire Bikila"', comma: ",", color: "text-primary" },
-    { prefix: "  location:", value: ' "Addis Ababa, Ethiopia"', comma: ",", color: "text-primary" },
-    { prefix: "  passion:", value: ' "Building the Future"', comma: ",", color: "text-neon-purple" },
-    { prefix: "  music:", value: " true", comma: ",", color: "text-accent" },
-    { prefix: "}", value: "", comma: ";", color: "" },
-  ];
-
+export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg scanlines">
-      {/* Floating particles */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-primary/30"
-          initial={{
-            x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000),
-            y: Math.random() * (typeof window !== "undefined" ? window.innerHeight : 800),
-          }}
-          animate={{
-            y: [null, Math.random() * -200, Math.random() * 200],
-            opacity: [0.2, 0.8, 0.2],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-      ))}
+    <section className="hero-omnic" id="top">
+      {/* Half Theme Color Screen Backdrop */}
+      <div className="omnic-half-backdrop" aria-hidden="true">
+        {/* Left half totally theme color */}
+        <div className="omnic-half-fill" />
+      </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 pt-20">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Left: Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-xs text-muted-foreground mb-4 tracking-widest uppercase">
-              // Welcome to my digital space
-            </p>
-            <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground mb-2 glitch-text">
-              Hello<span className="text-primary text-glow">_</span>World
-            </h1>
-            <div className="h-8 mt-4 mb-6">
-              <span className="text-lg text-neon-cyan font-mono">
-                {">"} {displayText}
-                <span className="cursor-blink text-primary">▊</span>
+      {/* Main Content Arena */}
+      <div className="omnic-stage">
+        {/* LEFT PANE: Sits on top of the Theme Color Half */}
+        <div className="omnic-left-pane">
+          {/* Main Title with Brand Bullet in place of BUILD */}
+          <h1 className="omnic-hero-title">
+            <svg
+              className="omnic-brand-icon"
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <circle cx="12" cy="12" r="3.5" fill="currentColor" />
+            </svg>
+            <span className="omnic-hero-name">{HERO_DATA.name}</span>
+          </h1>
+
+          {/* Subtitle & Summary */}
+          <p className="omnic-subtitle">
+            Software that inspires. Systems that scale.
+          </p>
+          <p className="omnic-description">
+            {HERO_DATA.summary}
+          </p>
+
+          {/* High-Contrast Pill Action Buttons */}
+          <div className="omnic-actions">
+            <a className="omnic-btn-primary" href={HERO_DATA.ctaPrimary.href}>
+              <span>{HERO_DATA.ctaPrimary.label.toUpperCase()}</span>
+              <svg
+                className="omnic-btn-arrow"
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M4 12L12 4M12 4H6M12 4V10"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+            <a className="omnic-btn-ghost" href={HERO_DATA.ctaSecondary.href}>
+              {HERO_DATA.ctaSecondary.label}
+            </a>
+          </div>
+
+          {/* Bottom Left: Trust & Tech Badges without circling */}
+          <div className="omnic-social-proof">
+            <div className="omnic-tech-icons" aria-label="Core Languages">
+              <span className="omnic-tech-item" title="TypeScript">
+                <SiTypescript size={20} />
               </span>
+              <span className="omnic-tech-item" title="Python">
+                <SiPython size={20} />
+              </span>
+              <span className="omnic-tech-item" title="C++">
+                <SiCplusplus size={20} />
+              </span>
+              <span className="omnic-tech-more" title="More technologies">+5</span>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
-              I craft elegant digital experiences with clean code and creative solutions. 
-              Specializing in scalable web applications that push boundaries.
-            </p>
-            <div className="flex gap-4 mt-8">
-              <button
-                onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-2.5 text-sm bg-primary text-primary-foreground font-mono box-glow hover:brightness-110 transition-all"
-              >
-                view_projects()
-              </button>
-              <button
-                onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-2.5 text-sm border border-primary text-primary font-mono hover:bg-primary/10 transition-all"
-              >
-                contact_me()
-              </button>
+            <div className="omnic-proof-meta">
+              <strong>{HERO_DATA.socialProof?.title || 'Software Engineering · AAU'}</strong>
+              <span>{HERO_DATA.socialProof?.subtitle || 'Engineering resilient systems and modern web products.'}</span>
             </div>
-          </motion.div>
-
-          {/* Right: Code block */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="hidden md:block"
-          >
-            <div className="border border-border bg-card/80 backdrop-blur-sm box-glow">
-              <div className="flex items-center gap-2 px-4 py-2 border-b border-border">
-                <div className="flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-destructive/60" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary/60" />
-                </div>
-                <span className="text-[10px] text-muted-foreground ml-2">developer.ts</span>
-              </div>
-              <div className="p-4 font-mono text-sm">
-                {codeLines.map((line, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 + i * 0.15 }}
-                    className="leading-7"
-                  >
-                    <span className="text-muted-foreground/40 mr-4 select-none text-xs">{i + 1}</span>
-                    <span className="text-neon-cyan">{line.prefix}</span>
-                    <span className={line.color}>{line.name || ""}{line.value || ""}</span>
-                    <span className={line.color}>{line.op || ""}</span>
-                    <span className="text-muted-foreground">{line.comma || ""}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span className="text-xs text-muted-foreground/50 font-mono">scroll_down ↓</span>
-        </motion.div>
+        {/* CENTER: Picture positioned at the dead-center without glow or blur overlay */}
+        <div className="omnic-center-portrait">
+          <img
+            className="omnic-portrait-img"
+            src={HERO_DATA.avatarSrc}
+            alt={HERO_DATA.name}
+            loading="eager"
+          />
+        </div>
+
+        {/* RIGHT PANE: Floating Availability & Quote Cards */}
+        <div className="omnic-right-pane">
+          {/* Top-Right: Available For Pill */}
+          <div className="omnic-available-card">
+            <div className="omnic-available-header">
+              <span className="omnic-beacon-dot" />
+              <span className="omnic-available-label">AVAILABLE FOR</span>
+            </div>
+            <strong className="omnic-available-title">
+              Freelance & High-Impact Roles
+            </strong>
+          </div>
+
+          {/* Bottom-Right: White Floating Quote Card */}
+          <div className="omnic-quote-card">
+            <div className="omnic-quote-icon">“</div>
+            <p className="omnic-quote-text">
+              {HERO_DATA.highlightCard?.quote ||
+                'Building production systems that stay fast, reliable, and clean after launch.'}
+            </p>
+            <div className="omnic-quote-author">
+              <img
+                className="omnic-quote-avatar"
+                src={HERO_DATA.avatarSrc}
+                alt={HERO_DATA.name}
+              />
+              <div className="omnic-quote-meta">
+                <strong>{HERO_DATA.highlightCard?.author || HERO_DATA.name}</strong>
+                <span>{HERO_DATA.highlightCard?.role || 'Full-Stack Software Engineer'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

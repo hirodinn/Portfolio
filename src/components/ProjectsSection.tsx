@@ -1,245 +1,337 @@
-import { motion, useInView } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
-import { useRef, useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { PROJECTS_DATA } from '@/data/portfolioData';
 
-type ProjectCategory = "fullstack" | "frontend" | "backend" | "tooling";
+export const ProjectsSection: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [rotaryAngle, setRotaryAngle] = useState(0);
+  const [stageDimensions, setStageDimensions] = useState({ width: 600, height: 640 });
 
-type Project = {
-  id: string;
-  title: string;
-  summary: string;
-  impact: string;
-  tags: string[];
-  category: ProjectCategory;
-  year: string;
-  status: "LIVE" | "BETA" | "DEV";
-  liveUrl: string;
-  sourceUrl: string;
-  image: string;
-};
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const startYRef = useRef(0);
+  const startAngleRef = useRef(0);
 
-const projects = [
-  {
-    id: "00",
-    title: "Mereb Technology Website",
-    summary: "Corporate website for a global software outsourcing company, built to present services, trust signals, and conversion-focused user journeys.",
-    impact: "Improved lead-generation flow and brand credibility with SEO-ready pages, strong content architecture, and performance-first frontend delivery.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Sentry"],
-    category: "frontend",
-    year: "2026",
-    status: "LIVE",
-    liveUrl: "https://www.merebtechnology.com/",
-    sourceUrl: "",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1776763862/Screenshot_from_2026-04-21_12-28-18_yimm5d.png",
-  },
-  {
-    id: "01",
-    title: "AI Task Interruption Recovery System",
-    summary: "Development companion tool that silently tracks workspace activity, groups events into logical sessions, and uses AI to generate intelligent summaries for seamless task resumption.",
-    impact: "Reduced context-switching tax and cognitive load by providing developers with instant, automated \"where I left off\" reports after interruptions.",
-    tags: ["React", "TypeScript", "FastAPI", "Python", "Tailwind CSS", "LLMs"],
-    category: "tooling",
-    year: "2026",
-    status: "LIVE",
-    liveUrl: "",
-    sourceUrl: "https://github.com/hirodinn/AI-Task-Interruption-and-Recovery-System",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1776603328/Screenshot_from_2026-04-19_15-53-02_spxmog.png",
-  },
-  {
-    id: "02",
-    title: "PropVault",
-    summary: "Property listing platform for browsing homes, filtering results, and checking detailed property pages in one flow.",
-    impact: "Made property discovery faster with search-first listings and cleaner viewing experience.",
-    tags: ["React", "TypeScript", "Node.js / Express", "MongoDB"],
-    category: "fullstack",
-    year: "2026",
-    status: "LIVE",
-    liveUrl: "https://property-listing-platform-eta.vercel.app/",
-    sourceUrl: "https://github.com/hirodinn/Property-Listing-Platform",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353316/prop_cqlgdy.png",
-  },
-  {
-    id: "03",
-    title: "NotePad+",
-    summary: "Notes platform with folders, auth, and a clean dashboard feed for organizing personal and team ideas.",
-    impact: "Improved note organization flow and reduced friction from idea capture to retrieval.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-    category: "fullstack",
-    year: "2026",
-    status: "LIVE",
-    liveUrl: "https://notepad-self-iota.vercel.app/",
-    sourceUrl: "https://github.com/hirodinn/notepad",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773353446/notepad_ou8yxx.png",
-  },
-  {
-    id: "04",
-    title: "Habesha Wear",
-    summary: "Full-stack MERN e-commerce platform for traditional and modern Habesha clothing with role-based access for customer, vendor, admin, and owner.",
-    impact: "Streamlined end-to-end commerce workflows from catalog browsing and checkout to vendor stock control and admin approval dashboards.",
-    tags: ["React", "TypeScript", "Node.js / Express", "MongoDB"],
-    category: "fullstack",
-    year: "2026",
-    status: "LIVE",
-    liveUrl: "https://habesha-wear-rjdd.vercel.app/",
-    sourceUrl: "https://github.com/hirodinn/habesha-wear",
-    image: "https://res.cloudinary.com/dqrsyvncu/image/upload/v1773966832/home-home_wh8o6e.png",
-  },
-] as Project[];
+  const total = PROJECTS_DATA.length;
+  const STEP_ANGLE = 25; // degrees between items on the arc
 
-const filters: { label: string; value: "all" | ProjectCategory }[] = [
-  { label: "all", value: "all" },
-  { label: "fullstack", value: "fullstack" },
-  { label: "frontend", value: "frontend" },
-  { label: "backend", value: "backend" },
-  { label: "tooling", value: "tooling" },
-];
+  // Responsive radius & center coordinates
+  const radius = Math.min(520, Math.max(380, stageDimensions.height * 0.78));
+  const cx = -Math.round(radius * 0.28);
+  const cy = Math.round(stageDimensions.height / 2);
 
-const ProjectsSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeFilter, setActiveFilter] = useState<"all" | ProjectCategory>("all");
+  // Measure stage dimensions for responsive arc
+  useEffect(() => {
+    const updateSize = () => {
+      if (stageRef.current) {
+        setStageDimensions({
+          width: stageRef.current.offsetWidth,
+          height: stageRef.current.offsetHeight || 600,
+        });
+      }
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
-  const filteredProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((project) => project.category === activeFilter);
+  // Scroll-pinned progress listener
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const scrollableDistance = container.offsetHeight - window.innerHeight;
+
+      if (scrollableDistance <= 0) return;
+
+      // When the top of the container reaches or passes 0, it is sticky
+      if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+
+        if (!isDraggingRef.current) {
+          const rawIdx = progress * (total - 1);
+          const currentIdx = Math.max(0, Math.min(total - 1, Math.round(rawIdx)));
+          setActiveIndex(currentIdx);
+          setRotaryAngle(-rawIdx * STEP_ANGLE);
+        }
+      } else if (rect.top > 0) {
+        // Above the section
+        if (!isDraggingRef.current) {
+          setActiveIndex(0);
+          setRotaryAngle(0);
+        }
+      } else if (rect.bottom < window.innerHeight) {
+        // Below the section
+        if (!isDraggingRef.current) {
+          setActiveIndex(total - 1);
+          setRotaryAngle(-(total - 1) * STEP_ANGLE);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [total, STEP_ANGLE]);
+
+  // Programmatically scroll the page to match an index
+  const scrollToProject = useCallback(
+    (index: number) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const clamped = Math.max(0, Math.min(total - 1, index));
+      const scrollableDistance = container.offsetHeight - window.innerHeight;
+
+      if (scrollableDistance > 0) {
+        const targetScrollY =
+          window.scrollY +
+          container.getBoundingClientRect().top +
+          (clamped / (total - 1)) * scrollableDistance;
+
+        window.scrollTo({
+          top: targetScrollY,
+          behavior: 'smooth',
+        });
+      } else {
+        setActiveIndex(clamped);
+        setRotaryAngle(-clamped * STEP_ANGLE);
+      }
+    },
+    [total, STEP_ANGLE]
+  );
+
+  const prevProject = () => {
+    scrollToProject(activeIndex - 1);
+  };
+
+  const nextProject = () => {
+    scrollToProject(activeIndex + 1);
+  };
+
+  // Drag interaction for direct manual dragging
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDraggingRef.current = true;
+    startYRef.current = e.clientY;
+    startAngleRef.current = rotaryAngle;
+    if (stageRef.current) {
+      stageRef.current.setPointerCapture(e.pointerId);
+    }
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    const deltaY = e.clientY - startYRef.current;
+    const newAngle = startAngleRef.current + deltaY * 0.15;
+    setRotaryAngle(newAngle);
+
+    const calculatedIndex = Math.max(
+      0,
+      Math.min(total - 1, Math.round(-newAngle / STEP_ANGLE))
+    );
+    if (calculatedIndex !== activeIndex) {
+      setActiveIndex(calculatedIndex);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    if (stageRef.current && stageRef.current.hasPointerCapture(e.pointerId)) {
+      stageRef.current.releasePointerCapture(e.pointerId);
+    }
+    const nearestIndex = Math.max(
+      0,
+      Math.min(total - 1, Math.round(-rotaryAngle / STEP_ANGLE))
+    );
+    scrollToProject(nearestIndex);
+  };
+
+  const activeProject = PROJECTS_DATA[activeIndex] || PROJECTS_DATA[0];
+
+  // Arc path coordinates for SVG background
+  const arcSpan = 70 * (Math.PI / 180);
+  const guideR = radius + 95;
+  const startX = cx + guideR * Math.cos(-arcSpan);
+  const startY = cy + guideR * Math.sin(-arcSpan);
+  const endX = cx + guideR * Math.cos(arcSpan);
+  const endY = cy + guideR * Math.sin(arcSpan);
+  const arcPath = `M ${startX} ${startY} A ${guideR} ${guideR} 0 0 1 ${endX} ${endY}`;
+
+  // Apex notch coordinates (at angle 0)
+  const notchX = cx + radius + 95;
+  const notchY = cy;
 
   return (
-    <section id="projects" className="py-32 px-4 relative" ref={ref}>
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-        >
-          <p className="text-xs text-muted-foreground mb-2 font-mono">
-            <span className="text-primary">04.</span> // featured_work
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-16">
-            <span className="text-primary text-glow">$</span> ls -la projects/
-          </h2>
-        </motion.div>
+    <section
+      id="work"
+      ref={containerRef}
+      className="projects-pinned-section"
+      style={{
+        height: `${(total + 0.6) * 75}vh`,
+      }}
+    >
+      {/* Sticky Fullscreen Viewport: Stays locked while scrolling through projects */}
+      <div className="projects-sticky-viewport">
+        <div className="rotary-ambient-glow" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.15 }}
-          className="border border-border bg-card/20 p-3 mb-6"
-        >
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-muted-foreground mr-1">filter:</span>
-            {filters.map((filter) => (
-              <button
-                key={filter.value}
-                type="button"
-                onClick={() => setActiveFilter(filter.value)}
-                className={`text-[11px] font-mono px-3 py-1.5 border transition-colors ${
-                  activeFilter === filter.value
-                    ? "border-primary/50 text-primary bg-primary/10"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
+        {/* Top Header Strip */}
+        <div className="projects-header-strip">
+          <div className="projects-header-left">
+            <h2>Selected Work</h2>
+            <small>Scroll down to spin through projects</small>
           </div>
-        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-5">
-          {filteredProjects.map((project, i) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + i * 0.08 }}
-              className="group border border-border bg-card/20 hover:bg-card/50 transition-all duration-300 hover:box-glow overflow-hidden"
-            >
-              <div className="relative border-b border-border bg-background/40">
-                <img
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
-
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border bg-background/85 text-muted-foreground">
-                    {project.id}
-                  </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border bg-background/85 text-muted-foreground">
-                    {project.year}
-                  </span>
-                </div>
-
-                <div className="absolute top-3 right-3 flex items-center gap-2">
-                  {project.liveUrl ? (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-primary/40 text-primary bg-background/85 hover:bg-primary/10 transition-colors"
-                      aria-label={`Open live site for ${project.title}`}
-                    >
-                      <ExternalLink className="h-3.5 w-3.5" />
-                      <span>live</span>
-                    </a>
-                  ) : null}
-                  {project.sourceUrl ? (
-                    <a
-                      href={project.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-1 border border-border text-foreground bg-background/85 hover:border-primary/30 transition-colors"
-                      aria-label={`Open source code for ${project.title}`}
-                    >
-                      <Github className="h-3.5 w-3.5" />
-                      <span>code</span>
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <span className={`text-[10px] font-mono px-2 py-0.5 border ${
-                    project.status === "LIVE"
-                      ? "border-primary/40 text-primary"
-                      : project.status === "BETA"
-                      ? "border-accent/40 text-accent"
-                      : "border-muted-foreground/30 text-muted-foreground"
-                  }`}>
-                    {project.status}
-                  </span>
-                </div>
-
-                <p className="text-sm text-muted-foreground leading-relaxed">{project.summary}</p>
-
-                <div className="mt-3 pl-3 border-l-2 border-primary/25">
-                  <p className="text-xs text-foreground/85">
-                    <span className="text-primary font-mono text-[10px] uppercase tracking-wide">impact</span>: {project.impact}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-mono text-primary/70 bg-primary/5 px-2 py-0.5 border border-primary/10"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          <div className="projects-counter-badge">
+            <span>0{activeIndex + 1}</span>
+            <span style={{ opacity: 0.4 }}>/</span>
+            <span>0{total}</span>
+          </div>
         </div>
 
-        {filteredProjects.length === 0 && (
-          <p className="text-sm text-muted-foreground font-mono">No projects found for this filter.</p>
-        )}
+        {/* Middle Stage: 2-Column Wheel + Description */}
+        <div className="projects-main-stage">
+          {/* Left Column: Rotary Wheel Stage */}
+          <div
+            className="rotary-wheel-stage"
+            ref={stageRef}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+          >
+            {/* Guide Arc Track & Indicator Dots */}
+            <svg className="rotary-track-svg" aria-hidden="true">
+              <path
+                d={arcPath}
+                fill="none"
+                stroke="var(--line)"
+                strokeWidth="1.5"
+                strokeDasharray="4 6"
+                opacity="0.6"
+              />
+              {PROJECTS_DATA.map((_, i) => {
+                const theta = (i * STEP_ANGLE + rotaryAngle) * (Math.PI / 180);
+                const dotX = cx + guideR * Math.cos(theta);
+                const dotY = cy + guideR * Math.sin(theta);
+                const isCurrent = i === activeIndex;
+                return (
+                  <circle
+                    key={i}
+                    cx={dotX}
+                    cy={dotY}
+                    r={isCurrent ? 6 : 3.5}
+                    fill={isCurrent ? 'var(--accent)' : 'var(--muted)'}
+                    opacity={isCurrent ? 1 : 0.45}
+                    style={{ transition: 'all 0.3s ease' }}
+                  />
+                );
+              })}
+            </svg>
+
+            {/* Active Pointer Notch at the Apex */}
+            <div
+              className="rotary-active-notch"
+              style={{
+                left: `${notchX - 19}px`,
+                top: `${notchY - 19}px`,
+              }}
+            >
+              <div className="rotary-pointer-icon">›</div>
+              <div className="rotary-connector-line" />
+            </div>
+
+            {/* Project Cards Curved Along the Arc */}
+            {PROJECTS_DATA.map((p, i) => {
+              const itemAngle = i * STEP_ANGLE + rotaryAngle;
+              const rad = itemAngle * (Math.PI / 180);
+              const x = cx + radius * Math.cos(rad);
+              const y = cy + radius * Math.sin(rad);
+
+              const absAngle = Math.abs(itemAngle);
+              const scale = Math.max(0.65, 1.15 * (1 - absAngle / 130));
+              const opacity = Math.max(0.18, 1 - absAngle / 75);
+              const zIndex = Math.round(100 - absAngle);
+              const isActive = i === activeIndex;
+
+              return (
+                <div
+                  key={p.key}
+                  className={`rotary-card-item ${isActive ? 'is-active' : ''}`}
+                  style={{
+                    transform: `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${itemAngle}deg) scale(${scale})`,
+                    opacity: opacity,
+                    zIndex: zIndex,
+                  }}
+                  onClick={() => scrollToProject(i)}
+                >
+                  <img src={p.image} alt={p.title} loading="lazy" />
+                  <div className="card-overlay">
+                    <span className="card-title-mini">{p.title}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Project Details Panel */}
+          <div className="rotary-details-panel" key={activeProject.key}>
+            <div className="rotary-category-pill">{activeProject.subtitle}</div>
+
+            <h3 className="rotary-title">{activeProject.title}</h3>
+
+            <p className="rotary-description">{activeProject.description}</p>
+
+            <div className="rotary-tech-chips">
+              {activeProject.stack.map((tech, idx) => (
+                <span key={idx} className="rotary-chip">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <div className="rotary-actions">
+              <a
+                className="btn"
+                href={activeProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit Live Site →
+              </a>
+
+              <div className="rotary-nav-controls">
+                <button
+                  type="button"
+                  className="rotary-arrow-btn"
+                  onClick={prevProject}
+                  disabled={activeIndex === 0}
+                  aria-label="Previous project"
+                  style={{ opacity: activeIndex === 0 ? 0.35 : 1 }}
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  className="rotary-arrow-btn"
+                  onClick={nextProject}
+                  disabled={activeIndex === total - 1}
+                  aria-label="Next project"
+                  style={{ opacity: activeIndex === total - 1 ? 0.35 : 1 }}
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
+
+            <div className="rotary-instruction-hint">
+              <span>✦</span> Keep scrolling down to spin to the next project
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
