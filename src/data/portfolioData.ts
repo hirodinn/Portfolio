@@ -225,7 +225,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Hetzner',
     ],
     url: 'https://talent.mereb.tech',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503470/ats_coalks.jpg',
   },
   {
     key: 'lean',
@@ -235,7 +235,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'An enterprise system built for LEAN Healthcare Solutions to manage medical supply imports, warehouse inventory, and customer orders. I developed core user workflows in React and handled containerized staging and production deployments on Hetzner.',
     stack: ['React', 'Docker', 'Nginx', 'Hetzner'],
     url: 'https://lean.merebtech.com',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503546/erp_r528li.jpg',
   },
   {
     key: 'nodelala',
@@ -245,7 +245,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'A full-stack property rental platform connecting landlords and tenants. I developed the listing and booking interfaces, managed client state with Redux, and built RESTful endpoints on Node.js and Express with MongoDB.',
     stack: ['MongoDB', 'Express', 'React', 'Redux', 'Node.js'],
     url: 'https://nodelala.et',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503612/nodelala_vpdecg.jpg',
   },
   {
     key: 'yenext',
@@ -255,7 +255,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'A workspace application for teams to coordinate projects, assign tasks, and communicate in dedicated groups. Built during my time at Solanova Tech Solutions, where I developed React UI components and integrated them with NestJS APIs.',
     stack: ['React', 'NestJS', 'PostgreSQL'],
     url: 'https://yenext.org',
-    image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503127/Screenshot_from_2026-10-20_16-31-51_hhbxrg.png',
   },
   {
     key: 'site',
@@ -265,7 +265,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'The official corporate website for Mereb Technologies, built with Next.js for server-side rendering, fast initial page loads, and structured metadata.',
     stack: ['Next.js', 'SSR', 'i18n', 'SEO', 'GEO', 'Optimization'],
     url: 'https://merebtechnology.com',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1776763862/Screenshot_from_2026-04-21_12-28-18_yimm5d.png',
   },
 ];
 
