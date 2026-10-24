@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { NAV_ITEMS } from '@/data/portfolioData';
+import { NAV_ITEMS, HERO_DATA } from '@/data/portfolioData';
+import { ResumeModal } from '@/components/ResumeModal';
+import { Sun, Moon } from 'lucide-react';
 
 export const DockNav: React.FC = () => {
   const dockRef = useRef<HTMLElement>(null);
@@ -7,6 +9,7 @@ export const DockNav: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('dark');
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   const moveIndicator = useCallback((el: HTMLElement | null) => {
     if (!indRef.current || !el || el.offsetWidth === 0) return;
@@ -115,8 +118,6 @@ export const DockNav: React.FC = () => {
       e.preventDefault();
       const target = document.querySelector<HTMLElement>(href);
       if (target) {
-        // Sections that take full viewport (#top, #about, #work, #contact) align flush with top
-        // Standard padded sections (#experience, #skills, #education) account for dock height
         const isFullscreenSection =
           href === '#top' || href === '#about' || href === '#work' || href === '#contact';
         const docScrollY = window.scrollY || document.documentElement.scrollTop;
@@ -126,7 +127,6 @@ export const DockNav: React.FC = () => {
 
         const targetY = Math.max(0, Math.round(rectTop - clearance));
 
-        // Immediately update active status and pill indicator for snappy interaction
         setActiveIdx(idx);
         setHoverIdx(null);
         moveIndicator(e.currentTarget);
@@ -156,48 +156,71 @@ export const DockNav: React.FC = () => {
   const currentPillIdx = hoverIdx !== null ? hoverIdx : activeIdx;
 
   return (
-    <div className="dockw">
-      <nav
-        className="dock"
-        id="dock"
-        ref={dockRef}
-        aria-label="Sections navigation"
-        onPointerLeave={handleDockLeave}
-      >
-        <span className="ind" id="ind" ref={indRef} aria-hidden="true" />
-        {NAV_ITEMS.map((item, idx) => {
-          const isUnderPill = currentPillIdx === idx;
-          const isActive = activeIdx === idx;
-
-          return (
-            <a
-              key={item.href}
-              href={item.href}
-              className={`${item.hideOnMobile ? 'hm ' : ''}${isUnderPill ? 'on is-pill ' : ''}${isActive ? 'active ' : ''}`}
-              onPointerEnter={(e) => handlePointerEnter(e, idx)}
-              onFocus={(e) => {
-                setHoverIdx(idx);
-                moveIndicator(e.currentTarget);
-              }}
-              onBlur={() => handleDockLeave()}
-              onClick={(e) => handleNavClick(e, item.href, idx)}
-            >
-              {item.label}
-            </a>
-          );
-        })}
-        <button
-          id="theme"
-          type="button"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
-          title={`Switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
+    <>
+      <div className="dockw">
+        <nav
+          className="dock"
+          id="dock"
+          ref={dockRef}
+          aria-label="Sections navigation"
+          onPointerLeave={handleDockLeave}
         >
-          <span style={{ fontSize: '1rem', lineHeight: 1 }}>{themeMode === 'dark' ? '☼' : '☾'}</span>
-          <span>Theme</span>
-        </button>
-      </nav>
-    </div>
+          <span className="ind" id="ind" ref={indRef} aria-hidden="true" />
+          {NAV_ITEMS.map((item, idx) => {
+            const isUnderPill = currentPillIdx === idx;
+            const isActive = activeIdx === idx;
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`${item.hideOnMobile ? 'hm ' : ''}${isUnderPill ? 'on is-pill ' : ''}${isActive ? 'active ' : ''}`}
+                onPointerEnter={(e) => handlePointerEnter(e, idx)}
+                onFocus={(e) => {
+                  setHoverIdx(idx);
+                  moveIndicator(e.currentTarget);
+                }}
+                onBlur={() => handleDockLeave()}
+                onClick={(e) => handleNavClick(e, item.href, idx)}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+          <span className="dock-divider" aria-hidden="true" />
+          <button
+            type="button"
+            className="dock-resume-btn"
+            onClick={() => setResumeOpen(true)}
+            aria-label="View or download resume"
+            title="View or download resume (PDF)"
+          >
+            Resume
+          </button>
+          <button
+            id="theme"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
+            title={`Switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {themeMode === 'dark' ? (
+              <Sun size={15} strokeWidth={2.2} aria-hidden="true" />
+            ) : (
+              <Moon size={15} strokeWidth={2.2} aria-hidden="true" />
+            )}
+            <span>Theme</span>
+          </button>
+        </nav>
+      </div>
+
+      <ResumeModal
+        isOpen={resumeOpen}
+        onClose={() => setResumeOpen(false)}
+        resumeUrl="/resume.pdf"
+        candidateName={HERO_DATA.name}
+      />
+    </>
   );
 };
 

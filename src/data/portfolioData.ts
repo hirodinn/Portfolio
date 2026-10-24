@@ -116,7 +116,7 @@ export const HERO_DATA: HeroData = {
   name: 'Hire Bikila',
   role: 'Software Engineer',
   location: 'Addis Ababa, Ethiopia',
-  avatarSrc: '/profile.png',
+  avatarSrc: '/profile.webp',
   displayWord: 'BUILD',
   statusBadge: {
     status: 'available',
@@ -225,7 +225,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'Hetzner',
     ],
     url: 'https://talent.mereb.tech',
-    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503470/ats_coalks.jpg',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1792503470/ats_coalks.jpg',
   },
   {
     key: 'lean',
@@ -235,7 +235,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'An enterprise system built for LEAN Healthcare Solutions to manage medical supply imports, warehouse inventory, and customer orders. I developed core user workflows in React and handled containerized staging and production deployments on Hetzner.',
     stack: ['React', 'Docker', 'Nginx', 'Hetzner'],
     url: 'https://lean.merebtech.com',
-    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503546/erp_r528li.jpg',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1792503546/erp_r528li.jpg',
   },
   {
     key: 'nodelala',
@@ -245,7 +245,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'A full-stack property rental platform connecting landlords and tenants. I developed the listing and booking interfaces, managed client state with Redux, and built RESTful endpoints on Node.js and Express with MongoDB.',
     stack: ['MongoDB', 'Express', 'React', 'Redux', 'Node.js'],
     url: 'https://nodelala.et',
-    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503612/nodelala_vpdecg.jpg',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1792503612/nodelala_vpdecg.jpg',
   },
   {
     key: 'yenext',
@@ -255,7 +255,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'A workspace application for teams to coordinate projects, assign tasks, and communicate in dedicated groups. Built during my time at Solanova Tech Solutions, where I developed React UI components and integrated them with NestJS APIs.',
     stack: ['React', 'NestJS', 'PostgreSQL'],
     url: 'https://yenext.org',
-    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1792503127/Screenshot_from_2026-10-20_16-31-51_hhbxrg.png',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1792503127/Screenshot_from_2026-10-20_16-31-51_hhbxrg.png',
   },
   {
     key: 'site',
@@ -265,7 +265,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'The official corporate website for Mereb Technologies, built with Next.js for server-side rendering, fast initial page loads, and structured metadata.',
     stack: ['Next.js', 'SSR', 'i18n', 'SEO', 'GEO', 'Optimization'],
     url: 'https://merebtechnology.com',
-    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/v1776763862/Screenshot_from_2026-04-21_12-28-18_yimm5d.png',
+    image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1776763862/Screenshot_from_2026-04-21_12-28-18_yimm5d.png',
   },
 ];
 

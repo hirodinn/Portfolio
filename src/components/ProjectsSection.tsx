@@ -279,6 +279,16 @@ export const ProjectsSection: React.FC = () => {
 
           {/* Right Column: Project Details Panel */}
           <div className="rotary-details-panel" key={activeProject.key}>
+            {/* Mobile-only: show project image as a card at top */}
+            <div className="rotary-mobile-preview">
+              <img
+                src={activeProject.image}
+                alt={activeProject.title}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
             <div className="rotary-category-pill">{activeProject.subtitle}</div>
 
             <h3 className="rotary-title">{activeProject.title}</h3>

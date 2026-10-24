@@ -94,6 +94,10 @@ export const HeroSection: React.FC = () => {
             src={HERO_DATA.avatarSrc}
             alt={HERO_DATA.name}
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            width="1254"
+            height="1254"
           />
         </div>
 
@@ -122,6 +126,10 @@ export const HeroSection: React.FC = () => {
                 className="omnic-quote-avatar"
                 src={HERO_DATA.avatarSrc}
                 alt={HERO_DATA.name}
+                loading="lazy"
+                decoding="async"
+                width="34"
+                height="34"
               />
               <div className="omnic-quote-meta">
                 <strong>{HERO_DATA.highlightCard?.author || HERO_DATA.name}</strong>

@@ -33,7 +33,7 @@ export const EducationSection: React.FC = () => {
           io.unobserve(e.target);
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
     );
 
     const revealElements = sec.querySelectorAll('.rv');
