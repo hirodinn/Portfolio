@@ -56,13 +56,26 @@ export interface AboutData {
   stats: StatItem[];
 }
 
+export interface ExperienceProject {
+  name: string;
+  url?: string;
+  roleSummary?: string;
+}
+
 export interface ExperienceItem {
   role: string;
   company: string;
   period: string;
+  location?: string;
+  employmentType?: string;
+  isCurrent?: boolean;
+  icon?: 'code' | 'lightbulb' | 'layout';
+  description?: string;
   bullets: string[];
-  art: 'grid' | 'net' | 'chat';
-  seed: number;
+  technologies?: string[];
+  projects?: ExperienceProject[];
+  art?: 'grid' | 'net' | 'chat';
+  seed?: number;
 }
 
 export interface ProjectItem {
@@ -176,21 +189,43 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     role: 'Mid-Level Full Stack Engineer',
     company: 'Mereb Technologies',
     period: 'January 2026 - Present',
+    location: 'Addis Ababa, Ethiopia',
+    employmentType: 'Full-time',
+    isCurrent: true,
+    icon: 'code',
+    description:
+      'Building production web applications and backend services with React, Node.js, and C++, deploying containerized workloads on Hetzner.',
     bullets: [
       'Build and maintain full-stack web applications and backend services using React, Node.js, and C++.',
       'Deploy and monitor containerized services on Hetzner servers using Docker and Cloudflare Tunnels.',
       'Optimize backend endpoints and integrate Python microservices into the core application workflow.',
     ],
+    technologies: ['TypeScript', 'React', 'C++ (Drogon)', 'Node.js', 'Docker', 'Hetzner', 'Python'],
+    projects: [
+      { name: 'Mereb Talent', url: 'https://talent.mereb.tech', roleSummary: 'Recruitment & Verification Platform' },
+      { name: 'LEAN Healthcare ERP', url: 'https://lean.merebtech.com', roleSummary: 'Medical Supply & Warehouse Inventory' },
+    ],
     art: 'grid',
     seed: 5,
   },
   {
-    role: 'OpenPsi Engineer',
+    role: 'OpenPsi AI Engineer',
     company: 'iCog Labs',
     period: 'September 2025 - March 2026',
+    location: 'Addis Ababa, Ethiopia',
+    employmentType: 'Research & Engineering',
+    isCurrent: false,
+    icon: 'lightbulb',
+    description:
+      'Implemented cognitive reasoning behaviors, state evaluation routines, and decision logic for autonomous agents in OpenPsi.',
     bullets: [
       'Contributed to OpenPsi within the OpenCog framework, implementing decision logic and state evaluation for autonomous agents.',
       'Collaborated with the research team to test cognitive reasoning behaviors and debug execution pipelines.',
+      'Profiled memory allocation and inference loop latency during complex multi-goal agent simulations.',
+    ],
+    technologies: ['C++', 'Python', 'OpenCog Framework', 'Autonomous Agents', 'Cognitive Architectures'],
+    projects: [
+      { name: 'OpenPsi Reasoning Engine', roleSummary: 'Cognitive agent decision pipelines' },
     ],
     art: 'net',
     seed: 9,
@@ -199,9 +234,20 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     role: 'Junior Full Stack Engineer',
     company: 'Solanova Tech Solutions PLC',
     period: 'September 2025 - January 2026',
+    location: 'Addis Ababa, Ethiopia',
+    employmentType: 'Full-time',
+    isCurrent: false,
+    icon: 'layout',
+    description:
+      'Engineered responsive React interfaces connected with NestJS backend APIs, designed relational schemas, and structured collaborative workflows.',
     bullets: [
       'Developed responsive user interfaces in React and connected them with NestJS backend APIs.',
       'Implemented relational database models, wrote data migrations, and managed state for team collaboration workflows.',
+      'Engineered reusable UI component systems and optimized client bundle sizes for collaborative dashboards.',
+    ],
+    technologies: ['React', 'NestJS', 'PostgreSQL', 'TypeScript', 'Node.js', 'REST APIs'],
+    projects: [
+      { name: 'Yenext Workspace', url: 'https://yenext.org', roleSummary: 'Team Project & Workspace Collaboration' },
     ],
     art: 'chat',
     seed: 13,
