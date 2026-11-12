@@ -280,7 +280,6 @@ export const PROJECTS_DATA: ProjectItem[] = [
     description:
       'An enterprise system built for LEAN Healthcare Solutions to manage medical supply imports, warehouse inventory, and customer orders. I developed core user workflows in React and handled containerized staging and production deployments on Hetzner.',
     stack: ['React', 'Docker', 'Nginx', 'Hetzner'],
-    url: 'https://lean.merebtech.com',
     image: 'https://res.cloudinary.com/dqrsyvncu/image/upload/q_auto,f_auto,w_800/v1792503546/erp_r528li.jpg',
   },
   {
